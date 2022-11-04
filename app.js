@@ -45,6 +45,9 @@ function healSlate(blank) {
   if (player.stamina >= 10) {
     player.stamina = 10;
   }
+  if (player.health >= 100) {
+    player.health = 100;
+  }
   console.log(player.health);
   bossAttack();
 }
@@ -62,6 +65,9 @@ function healSelf(blank) {
   }
   let healPer = Math.round(heal * Math.random());
   player.health += healPer;
+  if (player.health >= 50) {
+    player.health = 50;
+  }
   console.log(player.health);
   bossAttack();
 }
@@ -116,6 +122,22 @@ function strongAttack(blank) {
 }
 
 function bossAttack() {
+  drawBoss();
+  let heroSlate = heroes.find((h) => h.name == "slate");
+  let heroFlint = heroes.find((h) => h.name == "flint");
+  if (heroSlate.health > 0 && heroFlint.health > 0) {
+    bossAttack1();
+  }
+  if (heroSlate.health > 0 && heroFlint.health <= 0) {
+    bossAttack2();
+  }
+  if (heroSlate.health <= 0 && heroFlint.health > 0) {
+    bossAttack3();
+  }
+  drawHero();
+  killPlayer();
+}
+function bossAttack1() {
   let attack = boss.damage;
   let chance = Math.floor(100 * Math.random());
   // if (chance >= 90) {
@@ -135,9 +157,38 @@ function bossAttack() {
   if (chance <= 30) {
     console.log("boss missed");
   }
-  drawBoss();
-  drawHero();
-  killPlayer();
+}
+function bossAttack2() {
+  let attack = boss.damage;
+  let chance = Math.floor(100 * Math.random());
+  // if (chance >= 90) {
+  //   heroes.forEach((h) => h.health - attack);
+  //   console.log(h.health);
+  // }
+  if (chance > 30) {
+    let hero = heroes.find((h) => h.type == "dwarf");
+    hero.health -= attack;
+    console.log(hero.name, hero.health);
+  }
+  if (chance < 30) {
+    console.log("boss missed");
+  }
+}
+function bossAttack3() {
+  let attack = boss.damage;
+  let chance = Math.floor(100 * Math.random());
+  // if (chance >= 90) {
+  //   heroes.forEach((h) => h.health - attack);
+  //   console.log(h.health);
+  // }
+  if (chance > 30) {
+    let hero = heroes.find((h) => h.type == "elf");
+    hero.health -= attack;
+    console.log(hero.name, hero.health);
+  }
+  if (chance < 30) {
+    console.log("boss missed");
+  }
 }
 
 function drawHealth() {
@@ -150,6 +201,9 @@ function drawHealth() {
 }
 
 function drawBoss() {
+  if (boss.health <= 0) {
+    window.alert("Congratulations! You beat up a child");
+  }
   let template = "";
   if (boss.level >= 0) {
     template += `<div class="card">
