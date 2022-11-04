@@ -123,16 +123,22 @@ function strongAttack(blank) {
 
 function bossAttack() {
   drawBoss();
-  let heroSlate = heroes.find((h) => h.name == "slate");
-  let heroFlint = heroes.find((h) => h.name == "flint");
-  if (heroSlate.health > 0 && heroFlint.health > 0) {
-    bossAttack1();
+  if (boss.health <= 0) {
+    console.log("boss leveled up");
+    bossLevelUp();
   }
-  if (heroSlate.health > 0 && heroFlint.health <= 0) {
-    bossAttack2();
-  }
-  if (heroSlate.health <= 0 && heroFlint.health > 0) {
-    bossAttack3();
+  if (boss.health > 0) {
+    let heroSlate = heroes.find((h) => h.name == "slate");
+    let heroFlint = heroes.find((h) => h.name == "flint");
+    if (heroSlate.health > 0 && heroFlint.health > 0) {
+      bossAttack1();
+    }
+    if (heroSlate.health > 0 && heroFlint.health <= 0) {
+      bossAttack2();
+    }
+    if (heroSlate.health <= 0 && heroFlint.health > 0) {
+      bossAttack3();
+    }
   }
   drawHero();
   killPlayer();
@@ -190,7 +196,44 @@ function bossAttack3() {
     console.log("boss missed");
   }
 }
+function bossLevelUp() {
+  debugger;
+  boss.health = 100;
+  boss.damage = 5;
+  boss.level = 0;
+  boss.damage * 2;
+  boss.health * 2;
+  boss.level++;
+  let flint = heroes.find((h) => h.name == "flint");
+  let slate = heroes.find((h) => h.name == "slate");
+  flint.level++;
+  flint.health = 50;
+  flint.stamina = 10;
+  flint.lowDamage = 1;
+  flint.healCompanion = 5;
+  flint.healSelf * 2;
+  flint.health * 2;
+  flint.stamina * 2;
+  flint.lowDamage * 2;
+  flint.healCompanion * 2;
+  flint.healSelf * 2;
 
+  slate.level += 1;
+  slate.health = 100;
+  slate.stamina = 10;
+  slate.lowDamage = 5;
+  slate.highDamage = 10;
+  slate.health = 100;
+  slate.stamina * 2;
+  slate.lowDamage * 2;
+  slate.highDamage * 2;
+  slate.health * 2;
+
+  document.getElementById("slateButton").classList.remove("hidden");
+  document.getElementById("flintButton").classList.remove("hidden");
+  drawBoss();
+  drawHero();
+}
 function drawBoss() {
   if (boss.health <= 0) {
     window.alert("Congratulations! You beat up a child");
@@ -252,10 +295,30 @@ function killPlayer() {
   if (slate.health <= 0 && flint.health <= 0) {
     document.getElementById("dying").play();
     window.alert("You suck");
+    resetPlayers();
   }
 }
 drawHero();
 drawBoss();
+
+function resetPlayers() {
+  let flint = heroes.find((h) => h.name == "flint");
+  let slate = heroes.find((h) => h.name == "slate");
+  if (flint.health <= 0 && slate.health <= 0) {
+    flint.health = 50;
+    flint.stamina = 10;
+    flint.level = 0;
+    slate.health = 50;
+    slate.stamina = 10;
+    slate.level = 0;
+    boss.health = 100;
+    boss.level = 0;
+  }
+  document.getElementById("slateButton").classList.remove("hidden");
+  document.getElementById("flintButton").classList.remove("hidden");
+  drawBoss();
+  drawHero();
+}
 
 // function drawHealth() {
 //   let slateElm = document.getElementById("slateHealth");
