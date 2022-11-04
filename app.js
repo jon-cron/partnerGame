@@ -157,11 +157,16 @@ function drawHero() {
 }
 
 function killPlayer() {
-  let flint = heroes.forEach((h) => h.name == "flint");
+  let flint = heroes.find((h) => h.name == "flint");
   if (flint.health <= 0) {
+    document.getElementById("flintButton").classList.add("hidden");
   }
-  let slate = heroes.forEach((h) => h.name == "slate");
+  let slate = heroes.find((h) => h.name == "slate");
   if (slate.health <= 0) {
+    document.getElementById("slateButton").classList.add("hidden");
+  }
+  if (slate.health <= 0 && flint.health <= 0) {
+    window.alert("You suck");
   }
 }
 drawHero();
