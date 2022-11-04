@@ -15,7 +15,7 @@ body {
 }
 .img-fluid {
   max-height: 30vh;
-  min-width: 30vh;
+  max-width: 30vh;
 }
 .card {
 }
