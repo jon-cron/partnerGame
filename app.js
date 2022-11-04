@@ -191,15 +191,6 @@ function bossAttack3() {
   }
 }
 
-function drawHealth() {
-  let slateElm = document.getElementById("slateHealth");
-  let slateHealth = heroes.find((h) => h.name == "slate");
-  slateElm.innerText = slateHealth.health;
-  let flintElm = document.getElementById("flintHealth");
-  let flintHealth = heroes.find((h) => h.name == "flint");
-  flintElm.innerText = flintHealth.health;
-}
-
 function drawBoss() {
   if (boss.health <= 0) {
     window.alert("Congratulations! You beat up a child");
@@ -207,19 +198,19 @@ function drawBoss() {
   let template = "";
   if (boss.level >= 0) {
     template += `<div class="card">
-          <div class="text-center">
-          <h4>${boss.name}</h4>
-          <h4>Level:${boss.level}</h4>
-          <h4>Hp:${boss.health}</h4>
-          <img
-          class="img-fluid"
-          src="${boss.img}"
-          alt=""
-          />
-          </div>
-          <div class="d-flex justify-content-center">
-          </div>
-          </div>`;
+    <div class="text-center player-height">
+    <h4>${boss.name}</h4>
+    <h4>Level:${boss.level}</h4>
+    <h4>Hp:${boss.health}</h4>
+    <img
+    class="img-fluid"
+    src="${boss.img}"
+    alt=""
+    />
+    </div>
+    <div class="d-flex justify-content-center">
+    </div>
+    </div>`;
   }
   document.getElementById(`${boss.name}`).innerHTML = template;
 }
@@ -229,20 +220,20 @@ function drawHero() {
   heroes.forEach((h) => {
     if (h.level >= 0) {
       template += `<div class="card">
-          <div class="text-center">
-          <h4>${h.name}</h4>
-          <h4>Level:${h.level}</h4>
-          <h4>Stamina:${h.stamina}</h4>
-          <img
-          class="img-fluid"
-          src="${h.img}"
-          alt=""
-          />
-          </div>
-          <div class="d-flex justify-content-center">
-          <h4>Hp:${h.health}</h4>
-          </div>
-          </div>`;
+      <div class="text-center player-height">
+      <h4>${h.name}</h4>
+      <h4>Level:${h.level}</h4>
+      <h4>Stamina:${h.stamina}</h4>
+      <img
+      class="img-fluid"
+      src="${h.img}"
+      alt=""
+      />
+      </div>
+      <div class="d-flex justify-content-center">
+      <h4>Hp:${h.health}</h4>
+      </div>
+      </div>`;
     }
     document.getElementById(`${h.name}`).innerHTML = template;
     template = "";
@@ -259,8 +250,18 @@ function killPlayer() {
     document.getElementById("slateButton").classList.add("hidden");
   }
   if (slate.health <= 0 && flint.health <= 0) {
+    document.getElementById("dying").play();
     window.alert("You suck");
   }
 }
 drawHero();
 drawBoss();
+
+// function drawHealth() {
+//   let slateElm = document.getElementById("slateHealth");
+//   let slateHealth = heroes.find((h) => h.name == "slate");
+//   slateElm.innerText = slateHealth.health;
+//   let flintElm = document.getElementById("flintHealth");
+//   let flintHealth = heroes.find((h) => h.name == "flint");
+//   flintElm.innerText = flintHealth.health;
+// }

@@ -21,17 +21,17 @@
 
   <body class="bg-dark">
     <header>
-      <section class="row navbar text-dark bg-light text-center">
+      <section class="row navbar text-warning bg-dark text-center">
         <div><h1>Nananananananananananananna</h1></div>
       </section>
     </header>
     <main class="container-fluid">
       <section class="row">
-        <div class="col-12 p-5 my-2">
-          <!-- SECTION heros -->
+        <!-- SECTION heros -->
+        <div class="col-12 pt-5 mt-2">
           <section class="row justify-content-center">
             <!-- STUB hero 1 -->
-            <div class="col-12 col-md-5 text-dark">
+            <div class="col-6 col-md-2 text-warning bg-dark">
               <div id="slate"></div>
               <div class="d-flex justify-content-evenly" id="slateButton">
                 <button class="btn btn-success" onclick="weakAttack('dwarf')">
@@ -42,15 +42,15 @@
               </div>
             </div>
             <!-- STUB hero 2 -->
-            <div class="col-12 col-md-5 text-dark">
+            <div class="col-6 col-md-2 text-warning">
               <div id="flint"></div>
             <div class="d-flex justify-content-evenly" id="flintButton">
               <button class="btn btn-success"  onclick="weakAttack('elf')">
-                Weak</button
+                Slap Kid</button
                 ><button class="btn btn-primary" onclick="healSlate('dwarf')">
                   Heal Slate
                 </button>
-                ><button class="btn btn-primary" onclick="healSelf('elf')">
+                <button class="btn btn-primary" onclick="healSelf('elf')">
                   Heal Self
                 </button>
               </div>
@@ -60,7 +60,7 @@
           </section>
           <!-- SECTION boss -->
           <section class="row align-item-evenly justify-content-center">
-            <div class="col-12 col-md-6 p-5 my-2 card text-dark bg-dark text-center">
+            <div class="col-12 col-md-3 p-2 my-1 card text-danger bg-dark text-center">
               <div id="boss"></div>
               <!-- <div class="bg-img p-2">
                 <div class="progress">
@@ -87,7 +87,9 @@
         </div>
       </section>
     </main>
-    <footer></footer>
+    <footer>
+      <audio id="dying" src="VOXScrm_Wilhelm scream (ID 0477)_BSB.wav"></audio>
+    </footer>
     <script src="app.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"

@@ -10,3 +10,12 @@ body {
 .hidden {
   display: none !important;
 }
+
+.player-height {
+}
+.img-fluid {
+  max-height: 30vh;
+  min-width: 30vh;
+}
+.card {
+}
