@@ -20,64 +20,43 @@
   </head>
 
   <body class="bg-dark">
-    <header></header>
+    <header>
+      <section class="row navbar text-dark bg-light text-center">
+        <div><h1>Battle</h1></div>
+      </section>
+    </header>
     <main class="container-fluid">
       <section class="row">
-        <div class="col-12">
+        <div class="col-12 p-5 my-2">
           <!-- SECTION heros -->
           <section class="row">
             <!-- STUB hero 1 -->
             <div class="col-12 col-md-5 text-dark">
-              <div class="card">
-                <div class="text-center">
-                  <h4>name</h4>
-                  <img
-                    class="img-fluid"
-                    src="https://images.unsplash.com/photo-1610568781018-995405522539?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGJhdG1hbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                    alt=""
-                  />
-                </div>
-                <div class="d-flex">
-                  <h4>Hp <span id="slateHealth">health</span></h4>
-                  <h4>Level <span id="slate-level">level</span></h4>
-                </div>
-              </div>
+              <div id="slate"></div>
               <div>
-                <button class="btn btn-success" onclick="weakAttack('flint')">
+                <button class="btn btn-success" onclick="weakAttack('dwarf')">
                   Weak</button
-                ><button class="btn btn-danger" onclick="strongAttack('flint')">
+                ><button class="btn btn-danger" onclick="strongAttack('dwarf')">
                   Strong
                 </button>
               </div>
             </div>
             <!-- STUB hero 2 -->
             <div class="col-12 col-md-5 text-dark">
-              <div class="card">
-                <div class="text-center">
-                  <h4>Flint</h4>
-                  <img
-                    class="img-fluid"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4jFVSFSsZ9x7RnSizpmKJntigYtZsMLnbwg&usqp=CAU"
-                    alt=""
-                  />
-                </div>
-                <div class="d-flex">
-                  <h4>Hp <span id="flintHealth">0</span></h4>
-                  <h4>Level <span id="flint-level">0</span></h4>
-                </div>
-              </div>
-              <div>
-                <button class="btn btn-success" onclick="weakAttack('flint')">
-                  Weak</button
-                ><button class="btn btn-primary" onclick="healSlate()">
+              <div id="flint"></div>
+            <div>
+              <button class="btn btn-success" onclick="weakAttack('elf')">
+                Weak</button
+                ><button class="btn btn-primary" onclick="healSlate('dwarf')">
                   Heal Slate
                 </button>
-                ><button class="btn btn-primary" onclick="healSelf()">
+                ><button class="btn btn-primary" onclick="healSelf('elf')">
                   Heal Self
                 </button>
               </div>
             </div>
-            <div class="col-12 col-md-5"></div>
+            </div>
+            </div>
           </section>
           <!-- SECTION boss -->
           <section class="row align-item-evenly">

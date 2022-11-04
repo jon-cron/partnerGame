@@ -1,13 +1,5 @@
 const heroes = [
   {
-    name: "slate",
-    type: "dwarf",
-    lowDamage: 5,
-    highDamage: 10,
-    health: 100,
-    level: 0,
-  },
-  {
     name: "flint",
     type: "elf",
     lowDamage: 1,
@@ -15,6 +7,16 @@ const heroes = [
     healSelf: 5,
     health: 50,
     level: 0,
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4jFVSFSsZ9x7RnSizpmKJntigYtZsMLnbwg&usqp=CAU",
+  },
+  {
+    name: "slate",
+    type: "dwarf",
+    lowDamage: 5,
+    highDamage: 10,
+    health: 100,
+    level: 0,
+    img: "https://images.unsplash.com/photo-1610568781018-995405522539?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGJhdG1hbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
   },
 ];
 
@@ -26,31 +28,24 @@ const boss = {
   level: 1,
 };
 
-// function weakChance() {
-//   let chances = Math.floor(100 * Math.random());
-//   if (chances > 40) {
-//   }
-//   return false;
-// }
-
-function healSlate() {
+function healSlate(blank) {
   let heal = 10;
-  let player = heroes.find((h) => h.name == "slate");
+  let player = heroes.find((h) => h.type == blank);
   let healPer = Math.round(heal * Math.random());
   player.health += healPer;
   console.log(player.health);
   bossAttack();
 }
-function healSelf() {
+function healSelf(blank) {
   let heal = 5;
-  let player = heroes.find((h) => h.name == "flint");
+  let player = heroes.find((h) => h.type == blank);
   let healPer = Math.round(heal * Math.random());
   player.health += healPer;
   console.log(player.health);
   bossAttack();
 }
 function weakAttack(blank) {
-  let player = heroes.find((h) => h.name == blank);
+  let player = heroes.find((h) => h.type == blank);
   let chances = Math.floor(100 * Math.random());
   if (chances > 40) {
     boss.health -= player.lowDamage;
@@ -65,13 +60,12 @@ function weakAttack(blank) {
   } else {
     console.log("missed");
   }
-  drawBossHealth();
   bossAttack();
 }
 
 function strongAttack(blank) {
   boss.health == 100;
-  let player = heroes.find((h) => h.name == blank);
+  let player = heroes.find((h) => h.type == blank);
   let chances = Math.floor(100 * Math.random());
   if (chances > 60) {
     boss.health -= player.highDamage;
@@ -103,7 +97,7 @@ function bossAttack() {
     console.log("boss missed");
   }
 
-  drawHealth();
+  drawHero();
 }
 
 function drawHealth() {
@@ -114,9 +108,30 @@ function drawHealth() {
   let flintHealth = heroes.find((h) => h.name == "flint");
   flintElm.innerText = flintHealth.health;
 }
-function drawBossHealth() {
-  boss.health = document.getElementById("progressBar");
-}
-// function drawBoss() {}
 
-function drawHeroes() {}
+function drawBoss() {}
+
+function drawHero() {
+  let template = "";
+  heroes.forEach((h) => {
+    if (h.level >= 0) {
+      template += `<div class="card">
+          <div class="text-center">
+          <h4>${h.name}</h4>
+          <img
+          class="img-fluid"
+          src="${h.img}"
+          alt=""
+          />
+          </div>
+          <div class="d-flex">
+          <h4>Hp:${h.health}</h4>
+          <h4>Level:${h.level}</h4>
+          </div>
+          </div>`;
+    }
+    document.getElementById(`${h.name}`).innerHTML = template;
+    template = "";
+  });
+}
+drawHero();
