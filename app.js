@@ -3,10 +3,11 @@ const heroes = [
     name: "flint",
     type: "elf",
     lowDamage: 1,
-    healCompanion: 10,
+    healCompanion: 5,
     healSelf: 5,
     health: 50,
     level: 0,
+    stamina: 10,
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4jFVSFSsZ9x7RnSizpmKJntigYtZsMLnbwg&usqp=CAU",
   },
   {
@@ -16,6 +17,7 @@ const heroes = [
     highDamage: 10,
     health: 100,
     level: 0,
+    stamina: 10,
     img: "https://images.unsplash.com/photo-1610568781018-995405522539?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTR8fGJhdG1hbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60",
   },
 ];
@@ -30,16 +32,34 @@ const boss = {
 };
 
 function healSlate(blank) {
-  let heal = 10;
+  let heal = 5;
+  let healer = heroes.find((h) => h.name == "flint");
+  healer.stamina--;
+  if (healer.stamina <= 0) {
+    healer.stamina = 0;
+  }
   let player = heroes.find((h) => h.type == blank);
-  let healPer = Math.round(heal * Math.random());
+  let healPer = Math.round(heal * Math.random() + healer.stamina);
+  player.stamina += 1;
   player.health += healPer;
+  if (player.stamina >= 10) {
+    player.stamina = 10;
+  }
   console.log(player.health);
   bossAttack();
 }
 function healSelf(blank) {
+  let restPlayer = heroes.find((h) => h.name == "slate");
+  restPlayer.stamina++;
+  if (restPlayer.stamina >= 10) {
+    restPlayer.stamina = 10;
+  }
   let heal = 5;
   let player = heroes.find((h) => h.type == blank);
+  player.stamina--;
+  if (player.stamina <= 0) {
+    player.stamina = 0;
+  }
   let healPer = Math.round(heal * Math.random());
   player.health += healPer;
   console.log(player.health);
@@ -47,8 +67,8 @@ function healSelf(blank) {
 }
 function weakAttack(blank) {
   let player = heroes.find((h) => h.type == blank);
-  let chances = Math.floor(100 * Math.random());
-  if (chances > 40) {
+  let chances = player.stamina + Math.floor(100 * Math.random());
+  if (chances > 50) {
     boss.health -= player.lowDamage;
     console.log(
       player.name,
@@ -58,8 +78,17 @@ function weakAttack(blank) {
       "boss health:",
       boss.health
     );
-  } else {
+    player.stamina--;
+    if (player.stamina <= 0) {
+      player.stamina = 0;
+    }
+  }
+  if (chances < 50) {
     console.log("missed");
+    player.stamina--;
+    if (player.stamina <= 0) {
+      player.stamina = 0;
+    }
   }
   bossAttack();
 }
@@ -67,12 +96,21 @@ function weakAttack(blank) {
 function strongAttack(blank) {
   boss.health == 100;
   let player = heroes.find((h) => h.type == blank);
-  let chances = Math.floor(100 * Math.random());
-  if (chances > 60) {
+  let chances = Math.floor(100 * Math.random()) + player.stamina;
+  player.stamina -= 2;
+  if (player.stamina <= 0) {
+    player.stamina = 0;
+  }
+  if (chances > 50) {
     boss.health -= player.highDamage;
     console.log(player.name, "did dam, boss health:", boss.health);
   } else {
     console.log("missed");
+  }
+  let restPlayer = heroes.find((h) => h.name == "flint");
+  restPlayer.stamina++;
+  if (restPlayer.stamina >= 10) {
+    restPlayer.stamina = 10;
   }
   bossAttack();
 }
@@ -97,8 +135,8 @@ function bossAttack() {
   if (chance <= 30) {
     console.log("boss missed");
   }
-  drawHero();
   drawBoss();
+  drawHero();
   killPlayer();
 }
 
@@ -140,6 +178,7 @@ function drawHero() {
           <div class="text-center">
           <h4>${h.name}</h4>
           <h4>Level:${h.level}</h4>
+          <h4>Stamina:${h.stamina}</h4>
           <img
           class="img-fluid"
           src="${h.img}"
