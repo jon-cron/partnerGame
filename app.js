@@ -117,15 +117,15 @@ function drawBoss() {
     template += `<div class="card">
           <div class="text-center">
           <h4>${boss.name}</h4>
+          <h4>Level:${boss.level}</h4>
+          <h4>Hp:${boss.health}</h4>
           <img
           class="img-fluid"
           src="${boss.img}"
           alt=""
           />
           </div>
-          <div class="d-flex">
-          <h4>Hp:${boss.health}</h4>
-          <h4>Level:${boss.level}</h4>
+          <div class="d-flex justify-content-center">
           </div>
           </div>`;
   }
@@ -139,15 +139,15 @@ function drawHero() {
       template += `<div class="card">
           <div class="text-center">
           <h4>${h.name}</h4>
+          <h4>Level:${h.level}</h4>
           <img
           class="img-fluid"
           src="${h.img}"
           alt=""
           />
           </div>
-          <div class="d-flex">
+          <div class="d-flex justify-content-center">
           <h4>Hp:${h.health}</h4>
-          <h4>Level:${h.level}</h4>
           </div>
           </div>`;
     }

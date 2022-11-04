@@ -4,3 +4,6 @@
   min-height: 60vh;
   background-position: center;
 } */
+body {
+  height: 100vh;
+}
