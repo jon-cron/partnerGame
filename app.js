@@ -272,6 +272,7 @@ function drawHero() {
     document.getElementById(`${h.name}`).innerHTML = template;
     template = "";
   });
+  // NOTE place intro sound here... maybe???
 }
 
 function killPlayer() {
