@@ -155,20 +155,13 @@ function drawHero() {
     template = "";
   });
 }
-function disableFBtn() {}
-
-function disableSBtn() {
-  document.getElementById("slateButton").disabled = true;
-}
 
 function killPlayer() {
   let flint = heroes.forEach((h) => h.name == "flint");
   if (flint.health <= 0) {
-    disableFBtn();
   }
   let slate = heroes.forEach((h) => h.name == "slate");
   if (slate.health <= 0) {
-    disableSBtn();
   }
 }
 drawHero();
