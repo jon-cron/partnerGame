@@ -25,7 +25,8 @@ const boss = {
   health: 100,
   maxHealth: 100,
   damage: 5,
-  level: 1,
+  level: 0,
+  img: "https://images.unsplash.com/photo-1603652338609-84d94118f52c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YmFkJTIwZ3V5fGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60",
 };
 
 function healSlate(blank) {
@@ -98,6 +99,7 @@ function bossAttack() {
   }
 
   drawHero();
+  drawBoss();
 }
 
 function drawHealth() {
@@ -109,7 +111,26 @@ function drawHealth() {
   flintElm.innerText = flintHealth.health;
 }
 
-function drawBoss() {}
+function drawBoss() {
+  let template = "";
+  if (boss.level >= 0) {
+    template += `<div class="card">
+          <div class="text-center">
+          <h4>${boss.name}</h4>
+          <img
+          class="img-fluid"
+          src="${boss.img}"
+          alt=""
+          />
+          </div>
+          <div class="d-flex">
+          <h4>Hp:${boss.health}</h4>
+          <h4>Level:${boss.level}</h4>
+          </div>
+          </div>`;
+  }
+  document.getElementById(`${boss.name}`).innerHTML = template;
+}
 
 function drawHero() {
   let template = "";
@@ -135,3 +156,4 @@ function drawHero() {
   });
 }
 drawHero();
+drawBoss();
