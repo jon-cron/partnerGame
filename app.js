@@ -13,8 +13,8 @@ const heroes = [
   {
     name: "slate",
     type: "dwarf",
-    lowDamage: 5,
-    highDamage: 10,
+    lowDamage: 2,
+    highDamage: 3,
     health: 100,
     level: 0,
     stamina: 10,
@@ -42,12 +42,7 @@ function healSlate(blank) {
   let healPer = Math.round(heal * Math.random() + healer.stamina);
   player.stamina += 1;
   player.health += healPer;
-  if (player.stamina >= 10) {
-    player.stamina = 10;
-  }
-  if (player.health >= 100) {
-    player.health = 100;
-  }
+
   console.log(player.health);
   bossAttack();
 }
@@ -123,10 +118,6 @@ function strongAttack(blank) {
 
 function bossAttack() {
   drawBoss();
-  if (boss.health <= 0) {
-    console.log("boss leveled up");
-    bossLevelUp();
-  }
   if (boss.health > 0) {
     let heroSlate = heroes.find((h) => h.name == "slate");
     let heroFlint = heroes.find((h) => h.name == "flint");
@@ -139,9 +130,13 @@ function bossAttack() {
     if (heroSlate.health <= 0 && heroFlint.health > 0) {
       bossAttack3();
     }
+    drawHero();
+    killPlayer();
   }
-  drawHero();
-  killPlayer();
+  if (boss.health <= 0) {
+    console.log("boss leveled up");
+    bossLevelUp();
+  }
 }
 function bossAttack1() {
   let attack = boss.damage;
@@ -198,36 +193,32 @@ function bossAttack3() {
 }
 function bossLevelUp() {
   debugger;
-  boss.health = 100;
-  boss.damage = 5;
-  boss.level = 0;
-  boss.damage * 2;
-  boss.health * 2;
   boss.level++;
+  boss.health = 100;
+  boss.damage = boss.damage * boss.level;
+  boss.health = boss.health * boss.level;
   let flint = heroes.find((h) => h.name == "flint");
   let slate = heroes.find((h) => h.name == "slate");
   flint.level++;
   flint.health = 50;
-  flint.stamina = 10;
   flint.lowDamage = 1;
-  flint.healCompanion = 5;
-  flint.healSelf * 2;
-  flint.health * 2;
-  flint.stamina * 2;
-  flint.lowDamage * 2;
-  flint.healCompanion * 2;
-  flint.healSelf * 2;
+  flint.stamina = 10;
+  flint.healSelf = flint.health * flint.level;
+  flint.healSelf = flint.healSelf * flint.level;
+  flint.health = flint.health * flint.level;
+  flint.stamina = flint.stamina * flint.level;
+  flint.lowDamage = flint.lowDamage * flint.level;
+  flint.healCompanion = flint.healCompanion * flint.level;
 
-  slate.level += 1;
+  slate.level++;
   slate.health = 100;
+  slate.lowDamage = 2;
+  slate.highDamage = 5;
   slate.stamina = 10;
-  slate.lowDamage = 5;
-  slate.highDamage = 10;
-  slate.health = 100;
-  slate.stamina * 2;
-  slate.lowDamage * 2;
-  slate.highDamage * 2;
-  slate.health * 2;
+  slate.stamina = slate.stamina * slate.level;
+  slate.lowDamage = slate.lowDamage * slate.level;
+  slate.highDamage = slate.highDamage * slate.level;
+  slate.health = slate.health * slate.level;
 
   document.getElementById("slateButton").classList.remove("hidden");
   document.getElementById("flintButton").classList.remove("hidden");
@@ -308,10 +299,13 @@ function resetPlayers() {
     flint.health = 50;
     flint.stamina = 10;
     flint.level = 0;
-    slate.health = 50;
+    slate.health = 100;
+    slate.lowDamage = 2;
+    slate.highDamage = 3;
     slate.stamina = 10;
     slate.level = 0;
     boss.health = 100;
+    boss.damage = 5;
     boss.level = 0;
   }
   document.getElementById("slateButton").classList.remove("hidden");
